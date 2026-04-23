@@ -54,11 +54,8 @@ def choose(wordfreq):
 # mimic the probabilities of the input text.
 def main():
 	# Initialise.
+	filename = "output.txt"
 	data_dir = "data/"
-	n = 2
-	for arg in sys.argv[1:]:
-		if arg.isnumeric(): n = int(arg)
-		else: data_dir = arg
 
 	# Build the frequency table by reading the input text(s).
 	contexts = {}
@@ -72,7 +69,15 @@ def main():
 		build(contexts, words, 2)
 
 	# Print words at random, starting at some initial context.
-	out_file = "output.txt"
+	if(len(sys.argv))==3:
+		filename= sys.argv[1]
+		data_dir= sys.argv[2]
+		print(sys.argv)
+	elif(len(sys.argv))==2:
+		filename= sys.argv[1]
+	else: filename, data_dir = "output", "data/"
+
+	out_file = filename+".txt"
 	print("Writing " + out_file)
 	f = open(out_file, "w")
 	generate(f, starters, contexts)
