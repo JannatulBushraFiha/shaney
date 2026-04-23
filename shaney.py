@@ -27,10 +27,18 @@ def generate(f, starters, contexts):
 		key = tuple(context)
 		wordfreq = contexts.get(key, {})
 		if not wordfreq:
-				break
+			break
+
 		word = choose(wordfreq)
 		f.write(" " + word)
-		context = context[1:] + [word]
+
+		if word.endswith(('.', '!', '?')):
+			f.write("\n")
+			context = random.choice(starters)
+			f.write(" ".join(context))
+		else:
+			context = context[1:] + [word]
+
 	f.write("\n")
 
 # Randomly choose one word from a {word->frequency}
