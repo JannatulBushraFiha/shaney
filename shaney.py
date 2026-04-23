@@ -65,8 +65,10 @@ def main():
 		print("Reading " + data_dir + filename)
 		f = open(data_dir + filename, encoding="utf-8")
 		words = f.read().split()
-		starters.append(words[:2])
-		build(contexts, words, 2)
+		# Only use this file as a starter if it has at least n words.
+		if len(words) >= n:
+			starters.append(words[:n])
+			build(contexts, words, n)
 
 	# Print words at random, starting at some initial context.
 	if(len(sys.argv))==3:
